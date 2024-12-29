@@ -10,6 +10,12 @@ struct Point(u8,u8,u8);
 
 struct AlwaysEqual; // unit type struct
 
+#[derive(Debug)]
+struct Rectangle{
+    width: u32,
+    height: u32,
+}
+
 fn main() {
     let mut user1: User = User {
         name: String::from("Test"),
@@ -37,6 +43,19 @@ fn main() {
     //color can also be passed in move_point bcoz both point and color have same structure so it's difficult to differentiate between them
     //so to make them a different type tuple we use tuple structs
     //move_point(red) is not possible now
+
+
+    let rect1 = Rectangle {
+        width: 10,
+        height: 10
+    };
+
+    println!(
+        "The area of the rectangle is {} square pixels.",
+        area(&rect1)
+    );
+    println!("{:#?}", rect1);
+    dbg!(&rect1); //dbg! takes ownership that's why using the reference of rect1
 }
 
 fn build_user(name: String, email: String) -> User {
@@ -60,4 +79,8 @@ fn move_point(point: Point) {
         "Point is X={}, Y={}, Z={}",
         point.0, point.1, point.2
     )
+}
+
+fn area(rect1: &Rectangle) -> u32 {
+    rect1.width * rect1.height
 }
